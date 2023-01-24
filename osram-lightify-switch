@@ -1,59 +1,27 @@
----
 blueprint:
-  name: Osram Lightify Zigbee Switch
-  description: Osram Lightify Zigbee Switch
+  name: Switch-activated Light
+  description: Turn on a light on/off following a switch.
   domain: automation
   input:
-    osram_button:
-      name: Osram Lightify Switch
+    switch_entity:
+      name: Switch
       selector:
-        device:
-          integration: zha
-          manufacturer: Centralite
-          model: 3130
-    toggle_action:
-      name: Single Press
-      description: Action to run on single press
-      default: []
+        entity:
+    light_target:
+      name: Light
       selector:
-        action: {}
-    on_action:
-      name: Turn On
-      description: Action to run on press up
-      default: []
-      selector:
-        action: {}
-    off_action:
-      name: Turn Off
-      description: Action to run on press down
-      default: []
-      selector:
-        action: {}
+        target:
+          entity:
+            domain: light
 
-mode: single
+mode: restart
 max_exceeded: silent
 
 trigger:
-- platform: event
-  event_type: zha_event
-  event_data:
-    device_id: !input osram_button
-
-variables:
-  toggle_action: !input toggle_action
-  on_action: !input on_action
-  off_action: !input off_action
+  platform: state
+  entity_id: !input switch_entity
 
 action:
-- variables:
-    command: '{{ trigger.event.data.command }}'
-- choose:
-  - conditions:
-    - '{{ command == "toggle" }}'
-    sequence: !input toggle_action
-  - conditions:
-    - '{{ command == "on" }}'
-    sequence: !input on_action
-  - conditions:
-    - '{{ command == "off" }}'
-    sequence: !input off_action
+  - alias: "Turn on/off the light"
+    service: "light.turn_{{ trigger.to_state.state }}"
+    target: !input light_target
