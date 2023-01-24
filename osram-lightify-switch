@@ -18,14 +18,14 @@ blueprint:
       selector:
         action: {}
     on_action:
-      name: Double Press
-      description: Action to run on double press
+      name: Turn On
+      description: Action to run on press up
       default: []
       selector:
         action: {}
     off_action:
-      name: Long Press
-      description: Action to run on long press
+      name: Turn Off
+      description: Action to run on press down
       default: []
       selector:
         action: {}
