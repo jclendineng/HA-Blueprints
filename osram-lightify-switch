@@ -19,7 +19,7 @@ max_exceeded: silent
 
 trigger:
   platform: state
-  entity_id: !input button_entity
+  entity_id: !input switch_entity
 
 action:
   - alias: "Turn on/off the light"
