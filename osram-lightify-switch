@@ -5,7 +5,6 @@ blueprint:
   input:
     switch_entity:
       name: Switch
-        domain: zha
         platform: device
         type:
         subtype:
