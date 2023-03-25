@@ -5,8 +5,10 @@ blueprint:
   input:
     switch_entity:
       name: Switch
-      selector:
-        entity:
+        domain: zha
+        platform: device
+        type:
+        subtype:
     light_target:
       name: Light
       selector:
@@ -15,7 +17,6 @@ blueprint:
             domain: light
 
 mode: restart
-max_exceeded: silent
 
 trigger:
   platform: state
