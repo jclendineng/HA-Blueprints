@@ -1,0 +1,28 @@
+blueprint:
+  name: Switch-activated Light
+  description: Turn on a light on/off following a switch.
+  domain: automation
+  input:
+    switch_entity:
+      name: Switch
+      description: Switch
+      selector:
+        entity:
+          domain: switch
+    light_target:
+      name: Light
+      selector:
+        target:
+          entity:
+            domain: light
+
+mode: restart
+
+trigger:
+  platform: state
+  entity_id: !input switch_entity
+
+action:
+  - alias: "Turn on/off the light"
+    service: "light.turn_{{ trigger.to_state.state }}"
+    target: !input light_target
