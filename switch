@@ -5,9 +5,10 @@ blueprint:
   input:
     switch_entity:
       name: Switch
-        platform: device
-        type:
-        subtype:
+      description: Switch
+      selector:
+        entity:
+          domain: switch
     light_target:
       name: Light
       selector:
